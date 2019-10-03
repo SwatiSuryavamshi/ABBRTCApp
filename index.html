@@ -31,8 +31,22 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  <script src="js/main.js"></script>
+  
+  <script src="js/main.js">
+   window.onload = function () {
+            var constraints = { audio: true, video: { width: 1280, height: 720 } }; 
 
+navigator.mediaDevices.getUserMedia(constraints)
+.then(function(mediaStream) {
+  var video = document.querySelector('video');
+  video.srcObject = mediaStream;
+  video.onloadedmetadata = function(e) {
+    video.play();
+  };
+})
+.catch(function(err) { console.log(err.name + ": " + err.message); });
+        };
+  </script>
 </body>
 
 </html>
